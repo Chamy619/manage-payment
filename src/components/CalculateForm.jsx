@@ -1,6 +1,16 @@
 import { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
 import { calculate } from "../lib/calculate";
+
+const useStyles = makeStyles((theme) => ({
+  textField: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+}));
 
 function CalculateForm() {
   const [payment, setPayment] = useState("");
@@ -10,6 +20,8 @@ function CalculateForm() {
   const [ratio, setRatio] = useState("");
   const [year, setYear] = useState("");
   const [result, setResult] = useState("");
+
+  const classes = useStyles();
 
   const handlePayment = (event) => {
     setPayment(event.target.value);
@@ -42,31 +54,57 @@ function CalculateForm() {
 
   return (
     <form onSubmit={onSubmit}>
-      <div>
-        <label>
-          월 저축:{" "}
-          <input type="number" value={payment} onChange={handlePayment} /> 만원
-        </label>
-      </div>
-      <div>
-        <label>
-          PI: <input type="number" value={pi} onChange={handlePi} /> 만원
-        </label>
-      </div>
-      <div>
-        PS: <input type="number" value={ps} onChange={handlePs} /> 만원
-      </div>
-      <div>
-        명절 상여금:{" "}
-        <input type="number" value={bonus} onChange={handleBonus} /> 만원
-      </div>
-      <div>
-        이율: <input type="number" value={ratio} onChange={handleRatio} /> %
-      </div>
-      <div>
-        <input type="number" value={year} onChange={handleYear} /> 년 뒤
-      </div>
-      <button type="submit">계산</button>
+      <TextField
+        className={classes.textField}
+        fullWidth
+        label="월 저축 (만원)"
+        value={payment}
+        onChange={handlePayment}
+      />
+      <TextField
+        className={classes.textField}
+        fullWidth
+        label="PI (만원)"
+        value={pi}
+        onChange={handlePi}
+      />
+      <TextField
+        className={classes.textField}
+        fullWidth
+        label="PS (만원)"
+        value={ps}
+        onChange={handlePs}
+      />
+      <TextField
+        className={classes.textField}
+        fullWidth
+        label="명절 상여 (만원)"
+        value={bonus}
+        onChange={handleBonus}
+      />
+      <TextField
+        className={classes.textField}
+        fullWidth
+        label="이율 (%)"
+        value={ratio}
+        onChange={handleRatio}
+      />
+      <TextField
+        className={classes.textField}
+        fullWidth
+        label="투자 해 수 (년)"
+        value={year}
+        onChange={handleYear}
+      />
+      <Button
+        fullWidth
+        className={classes.textField}
+        type="submit"
+        variant="contained"
+        color="primary"
+      >
+        계산
+      </Button>
       <div>결과: {result} 원</div>
     </form>
   );
